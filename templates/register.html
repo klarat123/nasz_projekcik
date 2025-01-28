@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rejestracja - Wordiez</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <div class="col-lg-4">
+        <div class="rat-container left">
+            <img src="{{ url_for('static', filename='images/szczur1.png') }}" width="400" height="300" alt="rat 1"
+                class="rat-image">
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="container">
+            <div class="content">
+                <h1>Witaj w grze <span class="highlight">Wordiez</span></h1>
+                <img src="{{ url_for('static', filename='images/kot1.png') }}" width="150" height="150" alt="Kot"
+                    class="cat-image">
+
+
+                {% with messages = get_flashed_messages(with_categories=True) %}
+                {% if messages %}
+                <ul class="flashes">
+                    {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                {% endwith %}
+
+
+                <div class="form-container">
+                    <h2>Załóż konto</h2>
+                    <form action="{{ url_for('register') }}" method="POST">
+                        <div class="form-group">
+                            <label for="username">Nazwa użytkownika</label>
+                            <input type="text" id="username" name="username" class="round-input" required
+                                placeholder="Wpisz nazwę użytkownika">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Adres e-mail</label>
+                            <input type="email" id="email" name="email" class="round-input" required
+                                placeholder="Wpisz adres e-mail">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Hasło</label>
+                            <input type="password" id="password" name="password" class="round-input" required
+                                placeholder="Wpisz hasło">
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm_password">Potwierdź hasło</label>
+                            <input type="password" id="confirm_password" name="confirm_password" class="round-input"
+                                required placeholder="Potwierdź hasło">
+                        </div>
+                        <div class="buttons">
+                            <button type="submit" class="btn">Zarejestruj się</button>
+                        </div>
+                    </form>
+                    <div class="buttons">
+                        <a href="{{ url_for('home') }}" class="btn-return">Powrót do strony głównej</a>
+                    </div>
+                </div>
+
+                <div class="buttons">
+                    <a href="{{ url_for('login') }}" class="btn btn-secondary">Masz już konto? Zaloguj się</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="rat-container right">
+            <img src="{{ url_for('static', filename='images/szczur1.png') }}" width="400" height="300" alt="rat 1"
+                class="rat-image">
+        </div>
+    </div>
+
+</body>
+
+</html>

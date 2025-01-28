@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zasady Gry - Wordiez</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+   
+    <div class="gif-container left">
+        <img src="{{ url_for('static', filename='images/szczury.gif') }}" alt="Left GIF" class="side-gif">
+    </div>
+
+    <div class="container">
+      
+        <div class="header">
+            <a href="{{ url_for('logout') }}" class="logout-button">Wyloguj się</a>
+        </div>
+
+
+        {% with messages = get_flashed_messages(with_categories=True) %}
+            {% if messages %}
+                <div id="flash-message" class="flash-message">
+                    {% for category, message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <h1>Zasady Gry</h1>
+
+        <div class="content">
+            <p>Witaj w grze! Oto zasady:</p>
+            <ol>
+                <li><strong>Rozpoczęcie gry:</strong> Każdy gracz zaczyna z zerową liczbą punktów i stara się zdobywać punkty poprzez poprawne zgadywanie słówek.</li>
+                <li><strong>Rundy:</strong> Gra składa się z kilku rund. W każdej rundzie gracze otrzymują wskazówki do odgadnięcia słowa.</li>
+                <li><strong>Punkty:</strong> Za każdą poprawną odpowiedź zdobywasz punkty. Im szybciej odpowiesz, tym więcej punktów dostaniesz.</li>
+                <li><strong>Zakończenie gry:</strong> Gra kończy się po określonej liczbie rund. Zwycięzcą zostaje gracz z największą liczbą punktów.</li>
+            </ol>
+        </div>
+
+        <div class="buttons-container">
+            <a href="{{ url_for('glowna') }}" class="btn-return">Wróć do głównej strony</a>
+        </div>
+    </div>
+
+
+    <div class="gif-container right">
+        <img src="{{ url_for('static', filename='images/szczury.gif') }}" alt="Right GIF" class="side-gif">
+    </div>
+
+    <script>
+        window.onload = function () {
+            var flashMessage = document.getElementById('flash-message');
+            if (flashMessage) {
+                flashMessage.classList.add('show');
+                setTimeout(function () {
+                    flashMessage.classList.remove('show');
+                }, 3000);
+            }
+        };
+    </script>
+</body>
+
+</html>

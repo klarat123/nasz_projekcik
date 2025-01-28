@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logowanie - Wordiez</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <div class="col-lg-4">
+        <div class="rat-container left">
+            <img src="{{ url_for('static', filename='images/szczur1.png') }}" width="400" height="300" alt="rat 1"
+                class="rat-image">
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="container">
+            <div class="content">
+                <h1>Witaj w grze <span class="highlight">Wordiez</span></h1>
+                <img src="{{ url_for('static', filename='images/kot1.png') }}" width="150" height="150" alt="Kot"
+                    class="cat-image">
+
+                <div class="form-container">
+                    <h2>Zaloguj się</h2>
+
+                    {% with messages = get_flashed_messages(with_categories=True) %}
+                    {% if messages %}
+                    <ul class="flashes">
+                        {% for category, message in messages %}
+                        <li class="{{ category }}">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    {% endwith %}
+
+
+                    <form action="{{ url_for('login') }}" method="POST">
+                        <div class="form-group">
+                            <label for="identifier">Nazwa użytkownika lub e-mail</label>
+                            <input type="text" id="identifier" name="identifier" class="round-input" required
+                                placeholder="Wpisz nazwę użytkownika lub e-mail">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Hasło</label>
+                            <input type="password" id="password" name="password" class="round-input" required
+                                placeholder="Wpisz hasło">
+                        </div>
+                        <div class="buttons">
+                            <button type="submit" class="btn">Zaloguj się</button>
+                        </div>
+                    </form>
+
+                    <div class="buttons">
+                        <a href="{{ url_for('register') }}" class="btn btn-secondary">Nie masz konta? Zarejestruj
+                            się</a>
+                    </div>
+                    <div class="buttons">
+                        <a href="{{ url_for('home') }}" class="btn-return">Powrót do strony głównej</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="rat-container right">
+            <img src="{{ url_for('static', filename='images/szczur1.png') }}" width="400" height="300" alt="rat 1"
+                class="rat-image">
+        </div>
+    </div>
+
+</body>
+
+</html>

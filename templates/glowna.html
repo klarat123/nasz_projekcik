@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strona Główna - Wordiez</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+   
+
+    <div class="gif-container left">
+        <img src="{{ url_for('static', filename='images/szczury.gif') }}" alt="Left GIF" class="side-gif">
+    </div>
+
+    <div class="container">
+     
+        <div class="header">
+            <a href="{{ url_for('logout') }}" class="logout-button">Wyloguj się</a>
+        </div>
+
+     
+        {% with messages = get_flashed_messages(with_categories=True) %}
+            {% if messages %}
+                <div id="flash-message" class="flash-message">
+                    {% for category, message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <h1>Witaj na stronie głównej, <span style="color: #9962ee; font-family: 'Times New Roman'">{{ current_user.username }}!</span></h1>
+
+        <div class="buttons-container">
+            <button class="btn-main">Rozpocznij nową grę</button>
+            <a href="{{ url_for('zasady') }}"> <button class="btn-main">Zasady gry</button> </a>
+            <button class="btn-main">Zobacz statystyki</button>
+            <button class="btn-main">Udostępnij statystyki</button>
+        </div>
+
+     
+        
+        <div class="rat-container right">
+            <img src="{{ url_for('static', filename='images/szczur1.png') }}" alt="Rat 2" class="rat-image wide-rat">
+        </div>
+    </div>
+
+    <div class="gif-container right">
+        <img src="{{ url_for('static', filename='images/szczury.gif') }}" alt="Right GIF" class="side-gif">
+    </div>
+
+    <script>
+      
+        window.onload = function () {
+            var flashMessage = document.getElementById('flash-message');
+            if (flashMessage) {
+                flashMessage.classList.add('show');
+                setTimeout(function () {
+                    flashMessage.classList.remove('show');
+                }, 3000);  
+            }
+        };
+    </script>
+</body>
+
+</html>
