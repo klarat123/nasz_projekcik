@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, make_response
+from flask import Flask, render_template, request, redirect, url_for, flash, make_response, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
@@ -6,7 +6,7 @@ from flask_login import LoginManager, UserMixin, login_user, login_required, log
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'  
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = 'supersecretkey' 
+app.config['SECRET_KEY'] = 'supersecretkey'
 
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
@@ -22,7 +22,9 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(50), unique=True, nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False) 
-
+    games_played = db.Column(db.Integer, default=0)
+    games_won = db.Column(db.Integer, default=0)
+    percentage = db.Column(db.Integer, default=0)
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -34,15 +36,18 @@ with app.app_context():
 
 @app.route('/')
 def home():
-    return render_template('home.html')
+    dark_mode = session.get('dark_mode', False)
+    return render_template('home.html', dark_mode=dark_mode)
 
 @app.route('/glowna')
 @login_required
 def glowna():
-    return render_template('glowna.html')
+    dark_mode = session.get('dark_mode', False)
+    return render_template('glowna.html', dark_mode=dark_mode)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    dark_mode = session.get('dark_mode', False)
     if request.method == 'POST':
         username = request.form['username']
         email = request.form['email']
@@ -70,10 +75,11 @@ def register():
         flash('Rejestracja zakończona sukcesem! Możesz się teraz zalogować.', 'success')
         return redirect(url_for('login'))
 
-    return render_template('register.html')
+    return render_template('register.html', dark_mode=dark_mode)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    dark_mode = session.get('dark_mode', False)
     if request.method == 'POST':
         identifier = request.form['identifier']
         password = request.form['password']
@@ -91,18 +97,48 @@ def login():
         else:
             flash('Błędna nazwa użytkownika/email lub hasło', 'danger') 
 
-    return render_template('login.html')
+    return render_template('login.html', dark_mode=dark_mode)
+
+def update_statistics(user, won_game=False):
+    
+    user.games_played += 1
+    
+   
+    if won_game:
+        user.games_won += 1
+    
+    
+    if user.games_played > 0:
+        user.percentage = int((user.games_won / user.games_played) * 100)
+    else:
+        user.percentage = 0 
+    
+   
+    db.session.commit()
+
 
 @app.route('/zasady')
 def zasady():
-    return render_template('zasady.html')
+    dark_mode = session.get('dark_mode', False)
+    return render_template('zasady.html', dark_mode=dark_mode)
 
+@app.route('/toggle-dark-mode')
+def toggle_dark_mode():
+    session['dark_mode'] = not session.get('dark_mode', False)
+    return redirect(request.referrer)
 
 @app.route('/logout')
 @login_required
 def logout():
     logout_user()
     return redirect(url_for('login'))
+
+@app.route('/twoje-statystyki')
+@login_required
+def twoje_statystyki():
+    user = current_user
+    return render_template('twoje-statystyki.html', user=user)
+
 
 if __name__ == '__main__':
     app.run(debug=True)

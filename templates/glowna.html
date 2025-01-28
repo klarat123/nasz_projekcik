@@ -1,3 +1,6 @@
+{% extends "base.html" %}
+
+{% block content %}
 <!DOCTYPE html>
 <html lang="pl">
 
@@ -15,7 +18,7 @@
         <img src="{{ url_for('static', filename='images/szczury.gif') }}" alt="Left GIF" class="side-gif">
     </div>
 
-    <div class="container">
+    <div class="container custom-form-container">
      
         <div class="header">
             <a href="{{ url_for('logout') }}" class="logout-button">Wyloguj się</a>
@@ -37,8 +40,8 @@
         <div class="buttons-container">
             <button class="btn-main">Rozpocznij nową grę</button>
             <a href="{{ url_for('zasady') }}"> <button class="btn-main">Zasady gry</button> </a>
-            <button class="btn-main">Zobacz statystyki</button>
-            <button class="btn-main">Udostępnij statystyki</button>
+            <a href="{{ url_for('twoje_statystyki') }}"> <button class ="btn-main">Zobacz statystyki</button></a>
+           
         </div>
 
      
@@ -67,3 +70,4 @@
 </body>
 
 </html>
+{% endblock %}

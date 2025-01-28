@@ -64,6 +64,7 @@ body {
     gap: 20px;
 }
 
+
 .btn {
     padding: 15px 30px;
     background-color: #007bff; 
@@ -225,9 +226,8 @@ button, .btn {
 button:hover, .btn:hover {
     background-color: #b15b91;
 }
+.btn-return{
 
-
-.btn-return {
     background-color: #a12473;
     color: white;
     border-radius: 25px;
@@ -237,6 +237,17 @@ button:hover, .btn:hover {
     display: block;
     margin-top: 10px;
     transition: 0.3s;
+
+}
+
+.btn-udostepnianie {
+    background-color: #ea6393;
+    color: white;
+    border-radius: 25px;
+    padding: 12px 20px;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    width: 200px;
 }
 
 .btn-return:hover {
@@ -293,6 +304,7 @@ a button {
     transition: background-color 0.3s;
     text-decoration: none; 
     display: inline-block;
+    
 }
 
 .btn-main:hover {
@@ -326,6 +338,12 @@ a button {
     height: auto; 
 }
 
+.side-gif-2 {
+    max-width: 100%; 
+    height: auto; 
+    padding-left: 38px;
+}
+
 .wide-rat {
     width: 100%; 
     max-width: 900px; 
@@ -345,5 +363,66 @@ a:hover {
     color: #b15b91;
 }
 
+.dark-mode {
+    background-color: #431070;
+    color: rgb(21, 18, 18);
+}
+
+.toggle-dark-mode {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background-color: #ff66b2;
+    color: rgb(0, 0, 0);
+    padding: 10px;
+    border-radius: 50%;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+.toggle-dark-mode:hover {
+    background-color: #ff3399;
+}
+
+.custom-form-container {
+    background-color: #ffffff; 
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+body.dark-mode .custom-form-container {
+    background-color: #dbcfe8; 
+    color: #000000;
+}
+
+body.dark-mode .btn-main{
+    background-color: #ae3fc7; 
+    color: #ffffff;
+}
+
+body.dark-mode .btn-main:hover{
+    background-color: #c271cb; 
+    color: #ffffff;
+}
+
+body.dark-mode .btn-return{
+    background-color: #ae3fc7; 
+    color: #ffffff;
+}
+body.dark-mode .btn-return:hover{
+    background-color: #c271cb; 
+    color: #ffffff;
+}
+
+body.dark-mode .btn-udostepnianie{
+    background-color: #ae3fc7; 
+    color: #ffffff;
+}
+body.dark-mode .btn-udostepnianie:hover{
+    background-color: #c271cb; 
+    color: #ffffff;
+}
 
 

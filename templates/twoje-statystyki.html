@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twoje statystyki - Wordiez</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <div class="col-lg-4">
+    <div class="gif-container left">
+        <img src="{{ url_for('static', filename='images/szczurgifstat1.gif') }}" width="300" height="auto" alt="Left GIF" class="side-gif-2">
+    </div>
+    </div>
+
+    <div class="col-lg-4">
+    <div class="custom-form-container">
+        <h1>Statystyki użytkownika: <span style="color: #9962ee; font-family: 'Times New Roman'">{{ current_user.username }}!</span></h1>
+        
+        <div class="stats">
+            <div style="text-align: center;">
+            <p>Liczba rozegranych gier: {{ user.games_played }}</p>
+            <p>Liczba wygranych gier: {{ user.games_won }}</p>
+            <p>Procent wygranych: {{ user.percentage }}%</p>
+        </div>
+        </div>
+
+
+        <div class="buttons">
+            <div style="text-align: center;">
+            <a href="{{ url_for('glowna') }}" class="btn-udostepnianie">Powrót do strony głównej</a>
+            <button class="btn-udostepnianie" >Udostępnij statystyki</button>
+        </div>
+        </div>
+    </div>
+    </div>
+    <div class="col-lg-4">
+    <div class="gif-container right">
+        <img src="{{ url_for('static', filename='images/szczurgifstat1.gif') }}" width="300" height="auto" alt="Right GIF" class="side-gif-2">
+    </div>
+    </div>
+</body>
+
+</html>
+{% endblock %}

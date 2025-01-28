@@ -1,6 +1,8 @@
+{% extends "base.html" %}
+
+{% block content %}
 <!DOCTYPE html>
 <html lang="pl">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,31 +11,30 @@
 </head>
 
 <body>
-    
     <div class="col-lg-4">
         <div class="rat-container left">
-            <img src="{{ url_for('static', filename='images/szczur1.png') }}"  width="400" height="300" alt="rat 1" class="rat-image">
+            <img src="{{ url_for('static', filename='images/szczur1.png') }}" width="400" height="300" alt="rat 1" class="rat-image">
         </div>
     </div>
+    
     <div class="col-lg-4">
-        <div class="container">
+        <div class="container custom-form-container">
             <div class="content">
                 <h1>Witaj w grze <span class="highlight">Wordiez</span></h1>
                 <img src="{{ url_for('static', filename='images/kot1.png') }}" width="200" height="200" alt="Kot" class="cat-image">
                 <div class="buttons">
-                   
                     <a href="{{ url_for('login') }}" class="btn">Zaloguj się</a>
                     <a href="{{ url_for('register') }}" class="btn btn-secondary">Zarejestruj się</a>
                 </div>
             </div>
         </div>
     </div>
+
     <div class="col-lg-4">
         <div class="rat-container right">
-            <img src="{{ url_for('static', filename='images/szczur1.png') }}"  width="400" height="300" alt="rat 1" class="rat-image">
+            <img src="{{ url_for('static', filename='images/szczur1.png') }}" width="400" height="300" alt="rat 1" class="rat-image">
         </div>
     </div>
-
 </body>
-
 </html>
+{% endblock %}
