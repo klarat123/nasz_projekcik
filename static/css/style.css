@@ -304,6 +304,8 @@ a button {
     transition: background-color 0.3s;
     text-decoration: none; 
     display: inline-block;
+    width: 110px;
+    height: 60px;
     
 }
 
@@ -372,16 +374,22 @@ a:hover {
     position: fixed;
     top: 10px;
     left: 10px;
-    background-color: #ff66b2;
+    background-color: #fd46a2;
     color: rgb(0, 0, 0);
     padding: 10px;
     border-radius: 50%;
     font-size: 20px;
     text-decoration: none;
 }
+body.dark-mode .toggle-dark-mode{
+    background-color: #c365d6
+}
+body.dark-mode .toggle-dark-mode:hover{
+    background-color: #d283e2
+}
 
 .toggle-dark-mode:hover {
-    background-color: #ff3399;
+    background-color: #e974ae;
 }
 
 .custom-form-container {

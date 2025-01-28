@@ -127,6 +127,8 @@ def toggle_dark_mode():
     session['dark_mode'] = not session.get('dark_mode', False)
     return redirect(request.referrer)
 
+
+
 @app.route('/logout')
 @login_required
 def logout():
@@ -138,6 +140,11 @@ def logout():
 def twoje_statystyki():
     user = current_user
     return render_template('twoje-statystyki.html', user=user)
+
+@app.route('/udostepnione-statystyki/<int:user_id>')
+def udostepnione_statystyki(user_id):
+    user = User.query.get_or_404(user_id)
+    return render_template('udostepnione-statystyki.html', user=user)
 
 
 if __name__ == '__main__':
