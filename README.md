@@ -21,5 +21,10 @@ Jako cel projektu wyznaczyliśmy stworzenie strony internetowej, na wzór popula
 7. strona jest gotowa do użytku!
 
 
+**Twórcy projektu:**\
+Tajemnicze Stowarzyszenie Ambitnych Informatyków\
+Adamczyk Klaudia, \
+Maciąg Klara, \
+Michałowski Tymon
 
 
