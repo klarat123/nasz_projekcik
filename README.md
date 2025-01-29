@@ -1,5 +1,6 @@
 ﻿# nasz_projekcik
 **Projekt zaliczeniowy - Python w praktyce - web & deep learning**
+
 Jako cel projektu wyznaczyliśmy stworzenie strony internetowej, na wzór popularnej gry Wordle.
 
 **Funkcjonalności strony Wordiez:**
