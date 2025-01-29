@@ -227,7 +227,6 @@ button:hover, .btn:hover {
     background-color: #b15b91;
 }
 .btn-return{
-
     background-color: #a12473;
     color: white;
     border-radius: 25px;
@@ -237,7 +236,6 @@ button:hover, .btn:hover {
     display: block;
     margin-top: 10px;
     transition: 0.3s;
-
 }
 
 .btn-udostepnianie {
@@ -433,4 +431,81 @@ body.dark-mode .btn-udostepnianie:hover{
     color: #ffffff;
 }
 
+
+
+.flex-game {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.button-game-default {
+    background-color: gray;
+    min-width: 50px;
+    min-height: 50px;
+    border: none;
+    padding: 5px 5px;
+    margin: 5px;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 30px;
+    border-radius: 4px;
+    pointer-events: none;
+    cursor: pointer;
+}
+
+.button-word-contains {
+    background-color: rgb(255, 225, 0);
+}
+
+.button-letter-right {
+    background-color: green;
+}
+
+
+.button-game-flex
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.button-play-again {
+    padding: 20px 35px;
+    margin: 40px 0px 10px;
+    background-color: #ea6393; 
+    color: white;
+    border: none;
+    border-radius: 16px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-decoration: none; 
+    display: inline-block;
+
+}
+
+.button-leave-game {
+    background-color: #a12473;
+    color: white;
+    border-radius: 25px;
+    padding: 12px 20px;
+    font-size: 15px;
+    text-decoration: none;
+    margin-top: 10px;
+    transition: 0.3s;
+    max-width: 150px;
+}
+
+.game-container {
+    background: white;
+    padding: 5px 35px 30px 35px;
+    border-radius: 25px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    max-height: 800px;
+    height: 100%;
+    text-align: center;
+}
 

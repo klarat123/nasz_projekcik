@@ -1,7 +1,8 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, make_response, session
+from flask import Flask, render_template, request, redirect, url_for, flash, make_response, session, Response
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+import random
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'  
@@ -116,6 +117,25 @@ def update_statistics(user, won_game=False):
    
     db.session.commit()
 
+
+@app.route('/wordiez')
+@login_required
+def gra_wordiez():
+    plik = open("slowa.txt", "r")
+    klucz = losowy_klucz_plik(plik)
+    user = current_user
+    return render_template('wordiez.html', user=user, klucz=klucz)
+
+def losowy_klucz_plik(plik):
+    try:
+        with plik as pliczek:
+            linijki = pliczek.readlines()
+            losowy_klucz = random.choice(linijki).strip()
+            print(losowy_klucz)
+        return losowy_klucz
+    except FileNotFoundError:
+        return None
+           
 
 @app.route('/zasady')
 def zasady():
