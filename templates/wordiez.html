@@ -1,0 +1,196 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    </head>
+    <body>
+        <div class="game-container">
+            <div>
+                <h1><span class="highlight">Wordiez</span></h1>
+            </div> 
+            <div class="game-guesses-container">
+                <div class ="flex-game">
+                    <button class="button-game-default" id="row1 myButton1"> </button>
+                    <button class="button-game-default" id="row1 myButton2"></button>
+                    <button class="button-game-default" id="row1 myButton3"></button>
+                    <button class="button-game-default" id="row1 myButton4"></button>
+                    <button class="button-game-default" id="row1 myButton5"></button>
+                </div>
+                <div class ="flex-game">
+                    <button class="button-game-default" id="row2 myButton1"></button>
+                    <button class="button-game-default" id="row2 myButton2"></button>
+                    <button class="button-game-default" id="row2 myButton3"></button>
+                    <button class="button-game-default" id="row2 myButton4"></button>
+                    <button class="button-game-default" id="row2 myButton5"></button>
+                </div>
+                <div class ="flex-game">
+                    <button class="button-game-default" id="row3 myButton1"></button>
+                    <button class="button-game-default" id="row3 myButton2"></button>
+                    <button class="button-game-default" id="row3 myButton3"></button>
+                    <button class="button-game-default" id="row3 myButton4"></button>
+                    <button class="button-game-default" id="row3 myButton5"></button>
+                </div>
+                <div class ="flex-game">
+                    <button class="button-game-default" id="row4 myButton1"></button>
+                    <button class="button-game-default" id="row4 myButton2"></button>
+                    <button class="button-game-default" id="row4 myButton3"></button>
+                    <button class="button-game-default" id="row4 myButton4"></button>
+                    <button class="button-game-default" id="row4 myButton5"></button>
+                </div>
+                <div class ="flex-game">
+                    <button class="button-game-default" id="row5 myButton1"></button>
+                    <button class="button-game-default" id="row5 myButton2"></button>
+                    <button class="button-game-default" id="row5 myButton3"></button>
+                    <button class="button-game-default" id="row5 myButton4"></button>
+                    <button class="button-game-default" id="row5 myButton5"></button>
+                </div>
+                <div class ="flex-game">
+                    <button class="button-game-default" id="row6 myButton1"></button>
+                    <button class="button-game-default" id="row6 myButton2"></button>
+                    <button class="button-game-default" id="row6 myButton3"></button>
+                    <button class="button-game-default" id="row6 myButton4"></button>
+                    <button class="button-game-default" id="row6 myButton5"></button>
+                </div>
+            </div>
+            <div class="button-game-flex">
+                <a href="{{ url_for('gra_wordiez') }}"><button class="button-play-again">Zagraj jeszcze raz</button></a>
+                <a href="{{ url_for('glowna') }}"><button class="button-leave-game">Strona główna</button></a>
+            </div>
+        </div>
+    <script>
+        let keyword = "{{ klucz }}";
+
+        const letters = /^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]$/
+
+        document.addEventListener('DOMContentLoaded', function() {
+            let buttonNumber = 1;
+            let rowNumber = 1; 
+            let totalButtons = 6;
+            let totalRows = 7;
+
+            let guessedWord = "";
+            let containsLetters = "";
+
+            let button = document.getElementById(`row${rowNumber} myButton${buttonNumber}`);
+            
+            function updateButtonText(button, key) {
+                button.textContent = `${key.toUpperCase()}`;
+            }
+
+            
+            function moveToNextButton() {
+                if (buttonNumber < totalButtons) {
+                    buttonNumber++;
+                } else {
+                    return;
+                }
+            }
+
+            function moveToPreviousButton() {
+                if (buttonNumber > 1) {
+                    buttonNumber--;
+                } else {
+                    return;
+                }
+            }
+
+            function moveToNextRow() {
+                if (rowNumber < totalRows) {
+                    rowNumber++;
+                    buttonNumber = 1;
+                }
+            }
+
+            function checkWord()
+            {   
+                guessedWord = "";
+                containsLetters = "";
+
+                for(let i = 0; i < 5; i++)
+                {
+                    for(let j = 1; j < 6; j++)
+                    {
+                        let letter = document.getElementById(`row${rowNumber} myButton${j}`);
+                        if(letter.textContent.toLowerCase() == keyword[i])
+                            {
+                               containsLetters += letter.textContent.toLowerCase();
+                               break;
+                            }
+                    }
+                }
+
+                for(let i = 1; i < 6; i++)
+                {
+                    let letter = document.getElementById(`row${rowNumber} myButton${i}`);
+                    guessedWord += letter.textContent.toLowerCase();
+                    if (letter.textContent.toLowerCase() == keyword[i - 1])
+                    {
+                        letter.className = "button-game-default button-letter-right";
+                        containsLetters = containsLetters.replace(letter.textContent.toLowerCase(), "");
+                    }
+                }
+
+                for(let i = 0; i < containsLetters.length + 1; i++)
+                {
+                    for(let j = 1; j < 6; j++)
+                    {
+                        let letter = document.getElementById(`row${rowNumber} myButton${j}`);
+                        if(letter.textContent.toLowerCase() == containsLetters[i] && !(letter.classList.contains("button-letter-right")) && !(letter.classList.contains("button-word-contains")))
+                        {
+                            letter.className = "button-game-default button-word-contains";
+                            break;
+                        }
+                    }
+                }
+            }
+
+            document.addEventListener('keydown', function(event) {
+
+                if (!letters.test(event.key) && !(event.key == "Enter") && !(event.key == "Backspace")) {
+                    return;
+                }
+
+
+                if (event.key == "Enter" && buttonNumber == 6)
+                {
+                    checkWord();
+                    moveToNextRow();
+                    if(guessedWord.toLowerCase() == keyword)
+                    {
+                        rowNumber = 10;
+                        alert("Brawo, wygrałeś :)")
+                    }
+                    else if(rowNumber == 7)
+                    {
+                        alert(`Prawidłowe słowo to: ${keyword}`)
+                    }
+                    button = document.getElementById(`row${rowNumber} myButton${buttonNumber}`);
+                } else if (event.key === "Backspace") {
+                    moveToPreviousButton();
+                    button = document.getElementById(`row${rowNumber} myButton${buttonNumber}`);
+                    button.textContent = '';
+                } else if (event.key !== "Shift" && event.key !== "Enter") {
+                    if(rowNumber != 10)
+                    {
+                        updateButtonText(button, event.key); 
+                    }
+                    moveToNextButton(); 
+                    button = document.getElementById(`row${rowNumber} myButton${buttonNumber}`);
+                }
+
+            });
+        });
+
+    </script>
+
+    </body>
+</html> 
+
+{% endblock %}

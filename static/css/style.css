@@ -434,3 +434,71 @@ body.dark-mode .btn-udostepnianie:hover{
 }
 
 
+
+.button-game-default {
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+    background-color: #a4a4a4; 
+    color: white;
+    border: 2px solid #6b6b6b;
+    border-radius: 5px;
+    margin: 5px;
+    cursor: pointer;
+    display: inline-block;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+
+.button-letter-right {
+    background-color: #6aaa64;
+    border: 2px solid #4c7b4e;
+}
+
+.button-word-contains {
+    background-color: #c9b458;
+    border: 2px solid #b29e5d;
+}
+
+.button-game-default:hover {
+    transform: scale(1.05); 
+}
+
+
+.game-guesses-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+
+.flex-game {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+
+.button-play-again, .button-leave-game {
+    background-color: #4CAF50;
+    color: white;
+    font-size: 18px;
+    border-radius: 5px;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    margin: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.button-play-again:hover, .button-leave-game:hover {
+    background-color: #45a049;
+}
+
+
+h1 .highlight {
+    color: #ff8c00;
+}
