@@ -4,54 +4,65 @@
 
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    </head>
-    <body>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+
+</head>
+
+<body>
+    <div class="col-lg-4">
+        <div class="gif-container left">
+            <img src="{{ url_for('static', filename='images/kot_tanczacy.gif') }}" alt="Left GIF" class="side-gif">
+        </div>
+    </div>
+    <div class="col-lg-4">
         <div class="game-container">
             <div>
                 <h1><span class="highlight">Wordiez</span></h1>
-            </div> 
+            </div>
+            
             <div class="game-guesses-container">
-                <div class ="flex-game">
+                <div class="flex-game">
                     <button class="button-game-default" id="row1 myButton1"> </button>
                     <button class="button-game-default" id="row1 myButton2"></button>
                     <button class="button-game-default" id="row1 myButton3"></button>
                     <button class="button-game-default" id="row1 myButton4"></button>
                     <button class="button-game-default" id="row1 myButton5"></button>
                 </div>
-                <div class ="flex-game">
+                <div class="flex-game">
                     <button class="button-game-default" id="row2 myButton1"></button>
                     <button class="button-game-default" id="row2 myButton2"></button>
                     <button class="button-game-default" id="row2 myButton3"></button>
                     <button class="button-game-default" id="row2 myButton4"></button>
                     <button class="button-game-default" id="row2 myButton5"></button>
                 </div>
-                <div class ="flex-game">
+                <div class="flex-game">
                     <button class="button-game-default" id="row3 myButton1"></button>
                     <button class="button-game-default" id="row3 myButton2"></button>
                     <button class="button-game-default" id="row3 myButton3"></button>
                     <button class="button-game-default" id="row3 myButton4"></button>
                     <button class="button-game-default" id="row3 myButton5"></button>
                 </div>
-                <div class ="flex-game">
+                <div class="flex-game">
                     <button class="button-game-default" id="row4 myButton1"></button>
                     <button class="button-game-default" id="row4 myButton2"></button>
                     <button class="button-game-default" id="row4 myButton3"></button>
                     <button class="button-game-default" id="row4 myButton4"></button>
                     <button class="button-game-default" id="row4 myButton5"></button>
                 </div>
-                <div class ="flex-game">
+                <div class="flex-game">
                     <button class="button-game-default" id="row5 myButton1"></button>
                     <button class="button-game-default" id="row5 myButton2"></button>
                     <button class="button-game-default" id="row5 myButton3"></button>
                     <button class="button-game-default" id="row5 myButton4"></button>
                     <button class="button-game-default" id="row5 myButton5"></button>
                 </div>
-                <div class ="flex-game">
+                <div class="flex-game">
                     <button class="button-game-default" id="row6 myButton1"></button>
                     <button class="button-game-default" id="row6 myButton2"></button>
                     <button class="button-game-default" id="row6 myButton3"></button>
@@ -59,138 +70,163 @@
                     <button class="button-game-default" id="row6 myButton5"></button>
                 </div>
             </div>
+            <div style="text-align: center;">
             <div class="button-game-flex">
                 <a href="{{ url_for('gra_wordiez') }}"><button class="button-play-again">Zagraj jeszcze raz</button></a>
                 <a href="{{ url_for('glowna') }}"><button class="button-leave-game">Strona główna</button></a>
             </div>
         </div>
-    <script>
-        let keyword = "{{ klucz }}";
 
-        const letters = /^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]$/
+        </div>
+        <script>
+            let keyword = "{{ klucz }}";
 
-        document.addEventListener('DOMContentLoaded', function() {
-            let buttonNumber = 1;
-            let rowNumber = 1; 
-            let totalButtons = 6;
-            let totalRows = 7;
+            const letters = /^[a-zA-Z]$/
 
-            let guessedWord = "";
-            let containsLetters = "";
+            document.addEventListener('DOMContentLoaded', function () {
+                let buttonNumber = 1;
+                let rowNumber = 1;
+                let totalButtons = 6;
+                let totalRows = 7;
 
-            let button = document.getElementById(`row${rowNumber} myButton${buttonNumber}`);
-            
-            function updateButtonText(button, key) {
-                button.textContent = `${key.toUpperCase()}`;
-            }
+                let guessedWord = "";
+                let containsLetters = "";
 
-            
-            function moveToNextButton() {
-                if (buttonNumber < totalButtons) {
-                    buttonNumber++;
-                } else {
-                    return;
+                let button = document.getElementById(`row${rowNumber} myButton${buttonNumber}`);
+
+                function updateButtonText(button, key) {
+                    button.textContent = `${key.toUpperCase()}`;
                 }
-            }
 
-            function moveToPreviousButton() {
-                if (buttonNumber > 1) {
-                    buttonNumber--;
-                } else {
-                    return;
+
+                function moveToNextButton() {
+                    if (buttonNumber < totalButtons) {
+                        buttonNumber++;
+                    } else {
+                        return;
+                    }
                 }
-            }
 
-            function moveToNextRow() {
-                if (rowNumber < totalRows) {
-                    rowNumber++;
-                    buttonNumber = 1;
+                function moveToPreviousButton() {
+                    if (buttonNumber > 1) {
+                        buttonNumber--;
+                    } else {
+                        return;
+                    }
                 }
-            }
 
-            function checkWord()
-            {   
-                guessedWord = "";
-                containsLetters = "";
+                function moveToNextRow() {
+                    if (rowNumber < totalRows) {
+                        rowNumber++;
+                        buttonNumber = 1;
+                    }
+                }
 
-                for(let i = 0; i < 5; i++)
-                {
-                    for(let j = 1; j < 6; j++)
-                    {
-                        let letter = document.getElementById(`row${rowNumber} myButton${j}`);
-                        if(letter.textContent.toLowerCase() == keyword[i])
-                            {
-                               containsLetters += letter.textContent.toLowerCase();
-                               break;
+                function checkWord() {
+                    guessedWord = "";
+                    containsLetters = "";
+
+                    for (let i = 0; i < 5; i++) {
+                        for (let j = 1; j < 6; j++) {
+                            let letter = document.getElementById(`row${rowNumber} myButton${j}`);
+                            if (letter.textContent.toLowerCase() == keyword[i]) {
+                                containsLetters += letter.textContent.toLowerCase();
+                                break;
                             }
+                        }
                     }
-                }
 
-                for(let i = 1; i < 6; i++)
-                {
-                    let letter = document.getElementById(`row${rowNumber} myButton${i}`);
-                    guessedWord += letter.textContent.toLowerCase();
-                    if (letter.textContent.toLowerCase() == keyword[i - 1])
-                    {
-                        letter.className = "button-game-default button-letter-right";
-                        containsLetters = containsLetters.replace(letter.textContent.toLowerCase(), "");
+                    for (let i = 1; i < 6; i++) {
+                        let letter = document.getElementById(`row${rowNumber} myButton${i}`);
+                        guessedWord += letter.textContent.toLowerCase();
+                        if (letter.textContent.toLowerCase() == keyword[i - 1]) {
+                            letter.className = "button-game-default button-letter-right";
+                            containsLetters = containsLetters.replace(letter.textContent.toLowerCase(), "");
+                        }
                     }
-                }
 
-                for(let i = 0; i < containsLetters.length + 1; i++)
-                {
-                    for(let j = 1; j < 6; j++)
-                    {
-                        let letter = document.getElementById(`row${rowNumber} myButton${j}`);
-                        if(letter.textContent.toLowerCase() == containsLetters[i] && !(letter.classList.contains("button-letter-right")) && !(letter.classList.contains("button-word-contains")))
-                        {
-                            letter.className = "button-game-default button-word-contains";
-                            break;
+                    for (let i = 0; i < containsLetters.length + 1; i++) {
+                        for (let j = 1; j < 6; j++) {
+                            let letter = document.getElementById(`row${rowNumber} myButton${j}`);
+                            if (letter.textContent.toLowerCase() == containsLetters[i] && !(letter.classList.contains("button-letter-right")) && !(letter.classList.contains("button-word-contains"))) {
+                                letter.className = "button-game-default button-word-contains";
+                                break;
+                            }
                         }
                     }
                 }
-            }
 
-            document.addEventListener('keydown', function(event) {
-
-                if (!letters.test(event.key) && !(event.key == "Enter") && !(event.key == "Backspace")) {
-                    return;
+                function updateStatistics(wonGame) {
+                    fetch('/update_statistics', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': '{{ csrf_token() }}'
+                        },
+                        body: JSON.stringify({
+                            won_game: wonGame,
+                            user_id: '{{ current_user.id }}'
+                        })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log(data.message);
+                        })
+                        .catch(error => console.error('Error:', error));
                 }
 
+                document.addEventListener('keydown', function (event) {
 
-                if (event.key == "Enter" && buttonNumber == 6)
-                {
-                    checkWord();
-                    moveToNextRow();
-                    if(guessedWord.toLowerCase() == keyword)
-                    {
-                        rowNumber = 10;
-                        alert("Brawo, wygrałeś :)")
+                    if (!letters.test(event.key) && !(event.key == "Enter") && !(event.key == "Backspace")) {
+                        return;
                     }
-                    else if(rowNumber == 7)
-                    {
-                        alert(`Prawidłowe słowo to: ${keyword}`)
-                    }
-                    button = document.getElementById(`row${rowNumber} myButton${buttonNumber}`);
-                } else if (event.key === "Backspace") {
-                    moveToPreviousButton();
-                    button = document.getElementById(`row${rowNumber} myButton${buttonNumber}`);
-                    button.textContent = '';
-                } else if (event.key !== "Shift" && event.key !== "Enter") {
-                    if(rowNumber != 10)
-                    {
-                        updateButtonText(button, event.key); 
-                    }
-                    moveToNextButton(); 
-                    button = document.getElementById(`row${rowNumber} myButton${buttonNumber}`);
-                }
 
+
+                    if (event.key == "Enter" && buttonNumber == 6) {
+                        checkWord();
+                        moveToNextRow();
+                        if (guessedWord.toLowerCase() == keyword) {
+                            rowNumber = 10;
+                            confetti({
+                                particleCount: 300,
+                                spread: 200,
+                                origin: { y: 0.5 }
+                            });
+                            alert("Brawo, wygrałeś :)")
+                            updateStatistics(true);
+                        }
+                        else if (rowNumber == 7) {
+                            alert(`Prawidłowe słowo to: ${keyword}`)
+                            updateStatistics(false);
+                        }
+                        button = document.getElementById(`row${rowNumber} myButton${buttonNumber}`);
+                    } else if (event.key === "Backspace") {
+                        moveToPreviousButton();
+                        button = document.getElementById(`row${rowNumber} myButton${buttonNumber}`);
+                        button.textContent = '';
+                    } else if (event.key !== "Shift" && event.key !== "Enter") {
+                        if (rowNumber != 10) {
+                            updateButtonText(button, event.key);
+                        }
+                        moveToNextButton();
+                        button = document.getElementById(`row${rowNumber} myButton${buttonNumber}`);
+                    }
+
+                });
             });
-        });
 
-    </script>
+        </script>
+    </div>
+    <div class="col-lg-4">
+        <div class="gif-container right">
 
-    </body>
-</html> 
+            <img src="{{ url_for('static', filename='images/kot_tanczacy.gif') }}" alt="Right GIF" class="side-gif">
+
+        </div>
+    </div>
+
+</body>
+
+</html>
 
 {% endblock %}

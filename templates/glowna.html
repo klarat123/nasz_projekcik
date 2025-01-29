@@ -38,7 +38,7 @@
         <h1>Witaj na stronie głównej, <span style="color: #9962ee; font-family: 'Times New Roman'">{{ current_user.username }}!</span></h1>
 
         <div class="buttons-container">
-            <button class="btn-main">Rozpocznij nową grę</button>
+            <a href ="{{ url_for('gra_wordiez') }}"> <button class="btn-main">Rozpocznij nową grę</button></a>
             <a href="{{ url_for('zasady') }}"> <button class="btn-main">Zasady gry</button> </a>
             <a href="{{ url_for('twoje_statystyki') }}"> <button class ="btn-main">Zobacz statystyki</button></a>
            

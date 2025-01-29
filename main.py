@@ -1,7 +1,8 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, make_response, session, Response
+from flask import Flask, render_template, request, redirect, url_for, flash, make_response, session, Response, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+from flask_wtf.csrf import CSRFProtect
 import random
 
 app = Flask(__name__)
@@ -11,6 +12,7 @@ app.config['SECRET_KEY'] = 'supersecretkey'
 
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
+csrf = CSRFProtect(app)
 
 
 login_manager = LoginManager()
@@ -100,7 +102,24 @@ def login():
 
     return render_template('login.html', dark_mode=dark_mode)
 
-def update_statistics(user, won_game=False):
+@app.route('/update_statistics', methods=['POST'])
+@login_required
+def update_statistics_route():
+    won_game = request.json.get('won_game')  
+    user_id = request.json.get('user_id') 
+    
+    
+    user = User.query.get(user_id)
+    
+    if user:
+        update_statistics(user, won_game)  
+        return jsonify({"message": "Statystyki zostały zaktualizowane"})
+    else:
+        return jsonify({"message": "Nie znaleziono użytkownika"}), 404
+
+
+
+def update_statistics(user, won_game):
     
     user.games_played += 1
     

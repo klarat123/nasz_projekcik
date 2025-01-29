@@ -441,9 +441,9 @@ body.dark-mode .btn-udostepnianie:hover{
     font-size: 24px;
     font-weight: bold;
     text-transform: uppercase;
-    background-color: #a4a4a4; 
+    background-color: #e991ca; 
     color: white;
-    border: 2px solid #6b6b6b;
+    border: 2px solid #f8f8f8;
     border-radius: 5px;
     margin: 5px;
     cursor: pointer;
@@ -467,12 +467,7 @@ body.dark-mode .btn-udostepnianie:hover{
 }
 
 
-.game-guesses-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
-}
+
 
 
 .flex-game {
@@ -483,7 +478,7 @@ body.dark-mode .btn-udostepnianie:hover{
 
 
 .button-play-again, .button-leave-game {
-    background-color: #4CAF50;
+    background-color: #ee00ff;
     color: white;
     font-size: 18px;
     border-radius: 5px;
@@ -495,10 +490,24 @@ body.dark-mode .btn-udostepnianie:hover{
 }
 
 .button-play-again:hover, .button-leave-game:hover {
-    background-color: #45a049;
+    background-color: #c74479;
 }
 
 
 h1 .highlight {
-    color: #ff8c00;
+    color: #ee00ff;
 }
+
+.tekst_ziel{
+    color: #55bf24
+}
+.tekst_zol{
+    color: #efe81b
+}
+.zasady{
+    color: #de3ee1
+}
+
+
+
+
